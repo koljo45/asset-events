@@ -1,4 +1,5 @@
 using SaintStudio.AssetEvents.VisualScripting;
+using SaintStudio.Core.Attributes;
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -10,6 +11,8 @@ namespace SaintStudio.AssetEvents
     [CreateAssetMenu(fileName = "Event", menuName = "SaintStudio/ScriptableObjects/Events/Event", order = 1)]
     public class AssetEvent : ScriptableObject
     {
+        [SerializeField, ReadOnly] private string _lastRaiseTime;
+
         [field: FormerlySerializedAs("_triggerEventUnit")]
         [field: Tooltip("Set to true if this event should trigger event units in the visual scripting graph.")]
         [field: SerializeField]
@@ -28,6 +31,8 @@ namespace SaintStudio.AssetEvents
 
             if (TriggerEventUnit)
                 EventBus.Trigger(UnitEventNames.AssetEvent, this);
+
+            _lastRaiseTime = DateTime.Now.ToString();
         }
 
         public virtual void Raise(object value)

@@ -53,13 +53,14 @@ namespace SaintStudio.AssetEvents
 
         public void Raise(TValue value)
         {
+            base.Value = value;
+            Value = value;
+
             if (!CheckFilter(value))
             {
                 return;
             }
 
-            base.Value = value;
-            Value = value;
             Raise();
         }
 
@@ -68,13 +69,14 @@ namespace SaintStudio.AssetEvents
             TValue castValue = value == null ? default :
                 value is ValueHolder<TValue> holder ? holder.Value : (TValue)value;
 
+            base.Value = value;
+            Value = castValue;
+
             if (!CheckFilter(castValue))
             {
                 return;
             }
 
-            base.Value = value;
-            Value = castValue;
             Raise();
         }
 
