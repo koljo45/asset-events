@@ -28,6 +28,12 @@ namespace SaintStudio.AssetEvents.VisualScripting
         {
             AssetEvent assignedAssetEvent = flow.GetValue<AssetEvent>(AssetEventReference);
 
+            if (assignedAssetEvent == null)
+            {
+                Debug.LogError($"{nameof(AssetEventUnit)} :: Asset event reference is null at state '{flow.stack.graph.title}'");
+                return false;
+            }
+
             if (!assignedAssetEvent.TriggerEventUnit)
             {
                 Debug.LogError($"{nameof(AssetEventUnit)} :: The asset event unit is referencing an asset event ('{assignedAssetEvent.name}') that doesn't have the {nameof(AssetEvent.TriggerEventUnit)} property set to true. Please set the property to true or remove this asset event reference from the event unit.");
