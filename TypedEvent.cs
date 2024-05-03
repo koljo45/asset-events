@@ -80,6 +80,15 @@ namespace SaintStudio.AssetEvents
             Raise();
         }
 
+        /// <summary>
+        /// Raises the event without type checking the provided value.
+        /// </summary>
+        /// <param name="value"></param>
+        public void RaiseBase(object value)
+        {
+            base.Raise(value);
+        }
+
         private bool CheckFilter(TValue value)
         {
             return _filterType == FilterType.Any && _filterValues.Contains(value) ||
